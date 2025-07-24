@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FERNANDO WIFI ZONE - Redirection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  </head>
+  <body>
+    <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <!-- Header -->
+      <header class="bg-white shadow-sm border-b border-blue-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div class="flex items-center justify-center">
+            <h1 class="text-2xl font-bold text-blue-900">FERNANDO WIFI ZONE</h1>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="flex items-center justify-center p-4 py-12">
+        <div class="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
+          <!-- Loading Icon -->
+          <div class="text-center mb-8">
+            <div class="relative mx-auto w-20 h-20 mb-4">
+              <i data-lucide="loader" class="w-20 h-20 text-blue-500 mx-auto animate-spin"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-900 mb-2">
+              Redirection en cours...
+            </h1>
+            <p class="text-gray-600">
+              Veuillez patienter pendant que nous vous redirigeons
+            </p>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="mb-6">
+            <div class="bg-gray-200 rounded-full h-2">
+              <div id="progressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+            <p class="text-sm text-gray-500 mt-2 text-center">
+              <span id="progressText">Initialisation...</span>
+            </p>
+          </div>
+
+          <!-- Redirect Info -->
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+            <div class="flex items-start">
+              <i data-lucide="info" class="w-5 h-5 text-blue-500 mr-3 mt-0.5 flex-shrink-0"></i>
+              <div>
+                <p class="text-blue-800 font-medium text-sm mb-1">Information :</p>
+                <p class="text-blue-700 text-sm" id="redirectInfo">
+                  Vous allez être redirigé vers la page de connexion
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Manual Redirect Button -->
+          <div class="text-center">
+            <button
+              id="manualRedirect"
+              onclick="performRedirect()"
+              class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg"
+              style="display: none;"
+            >
+              Continuer manuellement
+            </button>
+          </div>
+
+          <!-- Additional Info -->
+          <div class="mt-6 text-center">
+            <p class="text-xs text-gray-500">
+              Si la redirection ne fonctionne pas automatiquement,<br />
+              cliquez sur le bouton ci-dessus
+            </p>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-blue-900 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center">
+            <div class="mb-2">
+              <h3 class="text-lg font-bold mb-1">FERNANDO & FILS SERVICES</h3>
+              <p class="text-blue-200 text-sm">Redirection sécurisée</p>
+            </div>
+            
+            <div class="border-t border-blue-800 pt-3">
+              <p class="text-blue-300 text-xs">
+                Copyright © 2025 FERNANDO & FILS SERVICES. Tous droits réservés.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+
+      let progress = 0;
+      let redirectUrl = 'login.html';
+      let redirectDelay = 3000; // 3 seconds
+
+      // Update progress bar
+      function updateProgress(percentage, text) {
+        document.getElementById('progressBar').style.width = percentage + '%';
+        document.getElementById('progressText').textContent = text;
+      }
+
+      // Perform redirect
+      function performRedirect() {
+        window.location.href = redirectUrl;
+      }
+
+      // Get redirect parameters from URL
+      function getRedirectParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const destination = urlParams.get('url') || urlParams.get('destination');
+        const delay = urlParams.get('delay');
+        const reason = urlParams.get('reason');
+        
+        if (destination) {
+          redirectUrl = destination;
+        }
+        
+        if (delay) {
+          redirectDelay = parseInt(delay) * 1000;
+        }
+        
+        // Update redirect info based on reason
+        const redirectInfo = document.getElementById('redirectInfo');
+        switch(reason) {
+          case 'login_required':
+            redirectInfo.textContent = 'Connexion requise. Redirection vers la page de connexion.';
+            break;
+          case 'session_expired':
+            redirectInfo.textContent = 'Session expirée. Redirection vers la page de connexion.';
+            break;
+          case 'access_denied':
+            redirectInfo.textContent = 'Accès refusé. Redirection vers la page d\'accueil.';
+            break;
+          case 'maintenance':
+            redirectInfo.textContent = 'Site en maintenance. Redirection vers la page d\'information.';
+            break;
+          default:
+            redirectInfo.textContent = 'Vous allez être redirigé vers la page demandée.';
+        }
+      }
+
+      // Simulate loading progress
+      function simulateProgress() {
+        const steps = [
+          { progress: 20, text: 'Vérification des paramètres...' },
+          { progress: 40, text: 'Validation de la redirection...' },
+          { progress: 60, text: 'Préparation de la page...' },
+          { progress: 80, text: 'Finalisation...' },
+          { progress: 100, text: 'Redirection...' }
+        ];
+        
+        let currentStep = 0;
+        const stepInterval = redirectDelay / steps.length;
+        
+        const progressInterval = setInterval(() => {
+          if (currentStep < steps.length) {
+            updateProgress(steps[currentStep].progress, steps[currentStep].text);
+            currentStep++;
+          } else {
+            clearInterval(progressInterval);
+            performRedirect();
+          }
+        }, stepInterval);
+        
+        // Show manual redirect button after half the delay
+        setTimeout(() => {
+          document.getElementById('manualRedirect').style.display = 'inline-block';
+        }, redirectDelay / 2);
+      }
+
+      // Initialize page
+      function initializePage() {
+        getRedirectParams();
+        
+        // Start progress simulation
+        setTimeout(() => {
+          simulateProgress();
+        }, 500);
+      }
+
+      // Initialize when page loads
+      document.addEventListener('DOMContentLoaded', initializePage);
+    </script>
+  </body>
+</html>

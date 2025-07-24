@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="login.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FERNANDO WIFI ZONE - Déconnexion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+      body {
+        background: linear-gradient(135deg, #ffeaea 0%, #fff7ed 100%) !important;
+        font-family: 'Segoe UI', Verdana, Arial, sans-serif;
+        color: #1e293b;
+      }
+      .header-main {
+        background: #fff;
+        border-bottom: 1px solid #fecaca;
+        box-shadow: 0 2px 8px 0 rgba(239, 68, 68, 0.04);
+        padding: 2rem 0 1rem 0;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .header-title {
+        font-size: 2em;
+        font-weight: bold;
+        color: #dc2626;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.7em;
+      }
+      .header-title svg {
+        width: 1.5em;
+        height: 1.5em;
+        vertical-align: middle;
+      }
+      .header-bar {
+        width: 70px;
+        height: 4px;
+        background: linear-gradient(90deg, #dc2626 0%, #f87171 100%);
+        border-radius: 2px;
+        margin: 0.7em auto 0.2em auto;
+      }
+      .section-card.logout {
+        background: rgba(255,255,255,0.92);
+        border-radius: 2rem;
+        box-shadow: 0 12px 32px 0 rgba(239, 68, 68, 0.13);
+        margin: 3rem auto 2rem auto;
+        padding: 2.5rem 2.2rem 2.2rem 2.2rem;
+        max-width: 420px;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: fadein 0.7s;
+      }
+      @keyframes fadein {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: none; }
+      }
+      .logout-icon {
+        margin-bottom: 1.2em;
+      }
+      .logout-icon svg {
+        width: 3.5em;
+        height: 3.5em;
+        color: #dc2626;
+        display: block;
+        margin: 0 auto;
+        filter: drop-shadow(0 2px 8px #dc262633);
+      }
+      .logout-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #1e293b;
+        margin-bottom: 0.3em;
+        text-align: center;
+      }
+      .logout-desc {
+        color: #64748b;
+        font-size: 1.08em;
+        text-align: center;
+        margin-bottom: 1.5em;
+      }
+      .session-summary {
+        width: 100%;
+        background: #fef2f2;
+        border-radius: 1.2em;
+        box-shadow: 0 2px 8px 0 #dc262611;
+        padding: 1.3em 1em 1em 1em;
+        margin-bottom: 1.2em;
+      }
+      .session-summary-row {
+        display: flex;
+        align-items: center;
+        gap: 0.7em;
+        margin-bottom: 0.7em;
+      }
+      .session-summary-row:last-child {
+        margin-bottom: 0;
+      }
+      .session-summary-icon {
+        width: 1.5em;
+        height: 1.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fee2e2;
+        border-radius: 0.5em;
+        flex-shrink: 0;
+      }
+      .session-summary-label {
+        color: #dc2626;
+        font-size: 1em;
+        min-width: 110px;
+      }
+      .session-summary-value {
+        font-weight: 600;
+        color: #b91c1c;
+        font-size: 1.08em;
+        word-break: break-all;
+      }
+      .logout-actions {
+        width: 100%;
+        margin-top: 1.2em;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7em;
+      }
+      .btn-logout {
+        width: 100%;
+        background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+        color: white;
+        font-weight: 700;
+        padding: 1.1em 1.1em;
+        border-radius: 1em;
+        border: none;
+        cursor: pointer;
+        font-size: 1.13em;
+        box-shadow: 0 2px 8px 0 rgba(37,99,235,0.10);
+        transition: background 0.2s, transform 0.15s;
+        letter-spacing: 0.01em;
+      }
+      .btn-logout:hover {
+        background: linear-gradient(90deg, #1d4ed8 0%, #2563eb 100%);
+        transform: translateY(-2px) scale(1.03);
+      }
+      .btn-home {
+        width: 100%;
+        background: #f3f4f6;
+        color: #374151;
+        font-weight: 600;
+        padding: 1.1em 1.1em;
+        border-radius: 1em;
+        border: none;
+        cursor: pointer;
+        font-size: 1.13em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5em;
+        transition: background 0.2s, transform 0.15s;
+      }
+      .btn-home:hover {
+        background: #e5e7eb;
+        transform: translateY(-2px) scale(1.03);
+      }
+      .info-box {
+        margin-top: 1.5em;
+        background: #fef9c3;
+        border-radius: 0.9em;
+        padding: 1.1em;
+        color: #b45309;
+        font-size: 1em;
+        text-align: center;
+      }
+      .feedback-section {
+        background: #eff6ff;
+        border-radius: 1em;
+        padding: 1.1em;
+        margin-top: 2em;
+        margin-bottom: 0.5em;
+        box-shadow: 0 2px 8px 0 #2563eb11;
+        animation: fadein 1.2s;
+      }
+      .feedback-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        font-weight: 600;
+        color: #2563eb;
+        font-size: 1.1em;
+        margin-bottom: 0.7em;
+      }
+      .feedback-title svg {
+        width: 1.2em;
+        height: 1.2em;
+      }
+      .footer-main {
+        background: #1e293b;
+        color: #fff;
+        padding: 2rem 0 1rem 0;
+        text-align: center;
+        margin-top: 3rem;
+        border-top: 2px solid #fecaca;
+      }
+      .footer-title {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+      }
+      .footer-desc {
+        color: #fecaca;
+        font-size: 1em;
+        margin-bottom: 1em;
+      }
+      .footer-copyright {
+        color: #fca5a5;
+        font-size: 0.95em;
+        border-top: 1px solid #334155;
+        padding-top: 1em;
+      }
+      .phone-links-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.3em;
+        margin: 1.3em 0 0.7em 0;
+      }
+      .phone-link {
+        display: flex;
+        align-items: center;
+        gap: 0.85em;
+        padding: 0.55em 1.3em 0.55em 1em;
+        background: linear-gradient(90deg, #f8fafc 60%, #e0e7ff 100%);
+        color: #1e293b !important;
+        border: 1.5px solid #2563eb;
+        border-radius: 2.2em;
+        font-weight: 600;
+        font-size: 1.15em;
+        text-decoration: none;
+        box-shadow: 0 2px 12px #2563eb0a;
+        min-width: 0;
+        max-width: 340px;
+        min-height: 2.5em;
+        transition: 
+          background 0.18s, 
+          color 0.18s, 
+          box-shadow 0.18s, 
+          border 0.18s,
+          transform 0.18s;
+        will-change: transform;
+      }
+      .phone-link:focus {
+        outline: 2px solid #1e40af;
+        outline-offset: 2px;
+      }
+      .phone-link:hover, .phone-link:active {
+        background: linear-gradient(90deg, #2563eb 60%, #1e40af 100%);
+        color: #fff !important;
+        border-color: #1e40af;
+        box-shadow: 0 8px 24px #2563eb22;
+        transform: translateY(-2px) scale(1.03);
+      }
+      .phone-link .phone-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #2563eb 60%, #60a5fa 100%);
+        border-radius: 50%;
+        width: 2em;
+        height: 2em;
+        transition: background 0.18s;
+        box-shadow: 0 2px 8px #2563eb22;
+      }
+      .phone-link:hover .phone-icon, .phone-link:active .phone-icon {
+        background: #fff;
+      }
+      .phone-link .phone-icon svg {
+        width: 1.05em;
+        height: 1.05em;
+        stroke: #fff;
+        transition: stroke 0.18s;
+      }
+      .phone-link:hover .phone-icon svg, .phone-link:active .phone-icon svg {
+        stroke: #2563eb;
+      }
+      @media (max-width: 600px) {
+        .header-title { font-size: 1.3em !important; }
+        .section-card.logout { padding: 1.2rem 0.5rem 1.2rem 0.5rem; border-radius: 1.2em; max-width: 98vw; }
+        .logout-title { font-size: 1.1em; }
+        .session-summary-label { font-size: 0.98em; }
+        .session-summary-value { font-size: 1em; }
+        .feedback-title { font-size: 1em; }
+        .phone-link {
+          font-size: 1.05em;
+          padding: 0.55em 0.7em 0.55em 0.7em;
+          max-width: 98vw;
+        }
+        .phone-links-wrapper {
+          gap: 1.1em;
+        }
+      }
+      @media (max-width: 480px) {
+        .header-main { padding-top: 1.1rem !important; padding-bottom: 0.7rem !important; }
+        .header-title { font-size: 1.25em !important; }
+        .header-bar { width: 38px !important; height: 3px !important; margin-top: 0.5em !important; margin-bottom: 0.2em !important; }
+        .section-card.logout { max-width: 99vw !important; padding: 1.2em 0.7em 1em 0.7em !important; border-radius: 0.9em !important; }
+        .session-summary { padding: 0.7em 0.3em 0.7em 0.3em !important; border-radius: 0.7em !important; }
+        .feedback-section { padding: 0.7em 0.2em !important; border-radius: 0.7em !important; }
+        .footer-main { padding: 2rem 0 2rem 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="min-h-screen">
+      <!-- Header -->
+      <header class="header-main">
+        <div class="header-title">
+          <span aria-hidden="true" style="display:flex;align-items:center;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 16l4-4m0 0l-4-4m4 4H7"/><path d="M3 12h4"/></svg>
+          </span>
+          FERNANDO WIFI ZONE
+        </div>
+        <div class="header-bar"></div>
+        <div style="font-size:1.1em;color:#dc2626;margin-bottom:0.2em;">Déconnexion</div>
+      </header>
+      <!-- Main Content -->
+      <main style="display:flex;justify-content:center;align-items:center;padding:2.5em 0 1.5em 0;">
+        <section class="section-card logout" aria-label="Déconnexion réussie">
+          <div class="logout-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 16l4-4m0 0l-4-4m4 4H7"/><path d="M3 12h4"/></svg>
+          </div>
+          <div class="logout-title">Déconnexion Réussie</div>
+          <div class="logout-desc">Vous avez été déconnecté du réseau FERNANDO WIFI ZONE</div>
+          <div class="session-summary" aria-label="Résumé de la session">
+            <div class="session-summary-row"><span class="session-summary-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span><span class="session-summary-label">Durée</span><span class="session-summary-value" id="sessionDuration">--</span></div>
+            <div class="session-summary-row"><span class="session-summary-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12h-4V8"/></svg></span><span class="session-summary-label">Heure</span><span class="session-summary-value" id="logoutTime">--</span></div>
+          </div>
+          <div class="logout-actions">
+            <button onclick="window.location.href='login.html'" class="btn-logout" aria-label="Se reconnecter">Se reconnecter</button>
+            <button onclick="window.location.href='login.html'" class="btn-home" aria-label="Retour à l'accueil">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.2em;height:1.2em;margin-right:0.3em;"><path d="M3 12l9-9 9 9"/><path d="M9 21V9h6v12"/></svg>
+              Retour à l'accueil
+            </button>
+          </div>
+          <div class="info-box">
+            Merci d'avoir utilisé nos services !<br />
+            Pour un nouveau ticket :
+            <div class="phone-links-wrapper">
+              <a href="tel:0197070213" class="phone-link" aria-label="Appeler le 01 97 07 02 13">
+                <span class="phone-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 16.92V19a2 2 0 0 1-2.18 2A19.72 19.72 0 0 1 3 5.18 2 2 0 0 1 5 3h2.09a2 2 0 0 1 2 1.72c.13 1.05.37 2.07.72 3.06a2 2 0 0 1-.45 2.11l-.27.27a16 16 0 0 0 6.29 6.29l.27-.27a2 2 0 0 1 2.11-.45c.99.35 2.01.59 3.06.72A2 2 0 0 1 22 16.92z"/></svg>
+                </span>
+                01 97 07 02 13
+              </a>
+              <a href="tel:0140150413" class="phone-link" aria-label="Appeler le 01 40 15 04 13">
+                <span class="phone-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 16.92V19a2 2 0 0 1-2.18 2A19.72 19.72 0 0 1 3 5.18 2 2 0 0 1 5 3h2.09a2 2 0 0 1 2 1.72c.13 1.05.37 2.07.72 3.06a2 2 0 0 1-.45 2.11l-.27.27a16 16 0 0 0 6.29 6.29l.27-.27a2 2 0 0 1 2.11-.45c.99.35 2.01.59 3.06.72A2 2 0 0 1 22 16.92z"/></svg>
+                </span>
+                01 40 15 04 13
+              </a>
+            </div>
+          </div>
+          <section class="feedback-section" aria-label="Votre avis nous intéresse">
+            <div class="feedback-title"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 15h.01M12 15h.01M16 15h.01"/></svg> Votre avis nous intéresse</div>
+            <p class="text-xs text-blue-800 mb-3">Comment s'est passée votre expérience de connexion ?</p>
+            <div style="display:flex;justify-content:center;gap:0.5em;">
+              <button class="text-2xl hover:scale-110 transition-transform" onclick="submitFeedback('excellent')" aria-label="Excellent">😊</button>
+              <button class="text-2xl hover:scale-110 transition-transform" onclick="submitFeedback('good')" aria-label="Bien">🙂</button>
+              <button class="text-2xl hover:scale-110 transition-transform" onclick="submitFeedback('average')" aria-label="Moyen">😐</button>
+              <button class="text-2xl hover:scale-110 transition-transform" onclick="submitFeedback('poor')" aria-label="Mauvais">😞</button>
+            </div>
+          </section>
+        </section>
+      </main>
+      <!-- Footer -->
+      <footer class="footer-main">
+        <div class="footer-title">FERNANDO & FILS SERVICES</div>
+        <div class="footer-desc">Merci de votre confiance</div>
+        <div class="footer-copyright">
+          Copyright © 2025 FERNANDO & FILS SERVICES. Tous droits réservés.
+        </div>
+      </footer>
+    </div>
+    <script>
+      lucide.createIcons();
+      function calculateSessionDuration() {
+        const loginTime = sessionStorage.getItem('loginTime');
+        if (loginTime) {
+          const start = new Date(loginTime);
+          const end = new Date();
+          const duration = end.getTime() - start.getTime();
+          const hours = Math.floor(duration / (1000 * 60 * 60));
+          const minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+          if (hours > 0) {
+            return `${hours}h ${minutes}min`;
+          }
+          return `${minutes} minutes`;
+        }
+        return 'Non disponible';
+      }
+      function submitFeedback(rating) {
+        sessionStorage.setItem('feedback', rating);
+        const feedbackSection = document.querySelector('.feedback-section');
+        feedbackSection.innerHTML = `
+          <div class="text-center">
+            <svg viewBox='0 0 24 24' fill='none' stroke='#22c55e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='width:2em;height:2em;margin:0 auto 0.5em auto;display:block;'><circle cx='12' cy='12' r='10'/><path d='M9 12l2 2l4-4'/></svg>
+            <p class="text-sm" style="color:#22c55e;font-weight:600;">Merci pour votre retour !</p>
+          </div>
+        `;
+      }
+      function initializePage() {
+        sessionStorage.removeItem('currentUser');
+        const now = new Date();
+        document.getElementById('logoutTime').textContent = now.toLocaleTimeString('fr-FR');
+        document.getElementById('sessionDuration').textContent = calculateSessionDuration();
+        sessionStorage.removeItem('loginTime');
+      }
+      document.addEventListener('DOMContentLoaded', initializePage);
+    </script>
+  </body>
+</html>
